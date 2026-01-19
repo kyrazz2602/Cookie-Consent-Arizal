@@ -42,7 +42,7 @@ A modern, dark-themed cookie consent popup solution built with vanilla JavaScrip
 ## 🔗 Acknowledgments
 
 Tantangan ini adalah bagian dari kurikulum Frontend Developer di [roadmap.sh](https://roadmap.sh).
-Link Project: [ttps://roadmap.sh/projects/cookie-consent](ttps://roadmap.sh/projects/cookie-consent)
+Link Project: [https://roadmap.sh/projects/cookie-consent](https://roadmap.sh/projects/cookie-consent)
 
 ---
 *Created by ❤️ Arizal Anshori*
