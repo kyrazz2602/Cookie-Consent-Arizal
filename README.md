@@ -2,9 +2,11 @@
 
 A modern, dark-themed cookie consent popup solution built with vanilla JavaScript. This project is a submission for the [Cookie Consent Project](https://roadmap.sh/projects/cookie-consent) challenge on roadmap.sh.
 
+## 🌟 Demo Preview
+
 ![Project Preview](Project-image.png)
 
-## 🌟 Features
+## 🎯 Features
 
 - **Dark Mode UI**: A sleek, modern interface designed with accessibility and aesthetics in mind.
 - **Data Persistence**: Uses `localStorage` to remember the user's choice. Once the user accepts or declines, the popup will not appear on subsequent visits (unless cleared).
@@ -33,6 +35,7 @@ A modern, dark-themed cookie consent popup solution built with vanilla JavaScrip
 ├── index.html          # Main HTML structure and JavaScript logic
 ├── Project-image.png   # Preview image for README
 └── README.md           # Project documentation
+```
 
 ---
 
