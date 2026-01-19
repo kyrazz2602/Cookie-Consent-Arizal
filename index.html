@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Consent</title>
+    <link href="https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css" rel="stylesheet">
+    <style>
+        /* Reset CSS sederhana */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+        }
+
+        /* --- CSS UTAMA COOKIE POPUP --- */
+        .cookie-wrapper {
+            position: fixed;
+            bottom: 30px;
+            left: 30px; /* Posisi di pojok kiri bawah */
+            max-width: 360px;
+            width: 100%;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            
+            /* Animasi Awal (Tersembunyi) */
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            z-index: 9999;
+        }
+
+        /* Class aktif untuk memunculkan popup */
+        .cookie-wrapper.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        /* Header Popup */
+        .cookie-wrapper header {
+            display: flex;
+            align-items: center;
+            column-gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .cookie-wrapper header i {
+            font-size: 28px;
+            color: #7289da;
+        }
+
+        .cookie-wrapper header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e0e0e0;
+        }
+
+        /* Konten Teks */
+        .data p {
+            font-size: 0.95rem;
+            color: #b0b3b8;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .data p a {
+            color: #7289da;
+            text-decoration: none;
+        }
+
+        .data p a:hover {
+            text-decoration: underline;
+            color: #99aab5;
+        }
+
+        /* Tombol */
+        .buttons {
+            display: flex;
+            column-gap: 10px;
+        }
+
+        .buttons button {
+            flex: 1;
+            padding: 10px 0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        /* Gaya Tombol Accept (Primary) */
+        #accept-btn {
+            background-color: #5865F2;
+            color: #fff;
+        }
+
+        #accept-btn:hover {
+            background-color: #4752c4;
+        }
+
+        /* Gaya Tombol Decline (Secondary) */
+        #decline-btn {
+            background-color: transparent;
+            color: #e0e0e0;
+            border: 1px solid #444;
+        }
+
+        #decline-btn:hover {
+            background-color: #333;
+            border-color: #666;
+        }
+        
+        /* Responsif untuk layar HP */
+        @media (max-width: 400px) {
+            .cookie-wrapper {
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1>Halaman Utama</h1>
+        <p>Popup akan muncul secara otomatis.</p>
+        <button onclick="localStorage.removeItem('cookieConsent'); location.reload();" 
+                style="margin-top:20px; padding:10px; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px; cursor: pointer;">Reset & Test Ulang</button>
+    </div>
+
+    <div class="cookie-wrapper">
+        <header>
+            <i class='bx bx-cookie'></i>
+            <h2>Cookies Consent</h2>
+        </header>
+        
+        <div class="data">
+            <p>Situs ini menggunakan cookie untuk memastikan Anda mendapatkan pengalaman terbaik. <a href="#">Pelajari selengkapnya</a></p>
+        </div>
+
+        <div class="buttons">
+            <button id="accept-btn">Terima</button>
+            <button id="decline-btn">Tolak</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cookieBox = document.querySelector(".cookie-wrapper");
+            const acceptBtn = document.getElementById("accept-btn");
+            const declineBtn = document.getElementById("decline-btn");
+
+            // Fungsi helper untuk mengatur cookie
+            const executeCodes = () => {
+                // Cek apakah cookieConsent sudah ada di localStorage
+                if (!localStorage.getItem("cookieConsent")) {
+                    // Munculkan popup setelah 1 detik
+                    setTimeout(() => {
+                        cookieBox.classList.add("show");
+                    }, 1000); 
+                }
+            };
+
+            // Event Listener: Tombol Terima
+            acceptBtn.addEventListener("click", () => {
+                // Simpan status 'true'
+                localStorage.setItem("cookieConsent", "true"); 
+                
+                // Hilangkan popup
+                cookieBox.classList.remove("show");
+                
+                // (Opsional) Di sini kamu bisa memuat script Analytics jika user setuju
+                console.log("User menyetujui cookie"); 
+            });
+
+            // Event Listener: Tombol Tolak
+            declineBtn.addEventListener("click", () => {
+                // Simpan status 'false' agar popup tidak muncul lagi,
+                // tapi kita tahu user menolak tracking.
+                localStorage.setItem("cookieConsent", "false"); 
+                
+                cookieBox.classList.remove("show");
+                console.log("User menolak cookie");
+            });
+
+            // Jalankan pengecekan saat halaman dimuat
+            executeCodes();
+        });
+    </script>
+
+</body>
+</html>
